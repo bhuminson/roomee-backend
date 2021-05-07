@@ -1,12 +1,11 @@
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS filters;
 DROP TABLE IF EXISTS login_info;
 DROP TABLE IF EXISTS likes;
 DROP TABLE IF EXISTS dislikes;
-
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
-    id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     username varchar(30) NOT NULL,
     Firstname varchar(30) NOT NULL,
     Lastname varchar(30) NOT NULL,
@@ -27,7 +26,7 @@ INSERT INTO "users" VALUES(5,'asdfasdf','Zion','Williamson','zion','6464646464',
 INSERT INTO "users" VALUES(6,'asdfasdf','Kim','Kardashian','kk','6464646464','kk@gmail.com', 'my bio');
 
 CREATE TABLE filters (
-    userId INTEGER PRIMARY KEY,
+    userId SERIAL PRIMARY KEY,
     age INTEGER NOT NULL,
     gender varchar(20) NOT NULL, -- male, female, non-binary, etc
     school varchar(50) NOT NULL, -- we might consider having a school table with locations, etc
@@ -54,26 +53,23 @@ INSERT INTO "filters" VALUES(5,26,'Male', 'Cal Poly', 'Business', 'Freshman', 20
 INSERT INTO "filters" VALUES(6,26,'Female', 'Cal Poly', 'Business', 'Freshman', 2022,'Leasing', TRUE, TRUE, 4,2,'Yes', 'Yes', 'Yes', FALSE, FALSE);
 
 CREATE TABLE login_info (
-    userId INTEGER PRIMARY KEY,
+    userId SERIAL PRIMARY KEY,
     password varchar(30) NOT NULL,
     FOREIGN KEY (userId) REFERENCES users(id)
 );
 INSERT INTO "login_info" VALUES(1,'dayday23');
 
 CREATE TABLE likes (
-    id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     userId INTEGER,
     likeId INTEGER,
     FOREIGN KEY (userId) REFERENCES users(id),
     FOREIGN KEY (likeId) REFERENCES users(id)
 );
 
-INSERT INTO "likes" VALUES (1, 2, 1);
-INSERT INTO "likes" VALUES (2, 4, 1);
-INSERT INTO "likes" VALUES (3, 6, 1);
 
 CREATE TABLE dislikes (
-    id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     userId INTEGER,
     dislikeId INTEGER,
     FOREIGN KEY (userId) REFERENCES users(id),

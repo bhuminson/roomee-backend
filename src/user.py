@@ -4,7 +4,10 @@ from psycopg2.extras import RealDictCursor
 import os
 
 bp = Blueprint('user', __name__)
-DATABASE_URL = os.environ['DATABASE_URL']
+host = "ec2-18-215-111-67.compute-1.amazonaws.com"
+db = "dbv08kj3kcvmh2"
+user = "ejhswicwaijxhi"
+pw = "b6d132d6465d2a329db0a0e1365f67319ab8ddc71785f61dc75f6fe460e17078"
 
 # This function handles fetching the next user in the db that satisfies the user's filters.
 # the user's filters will be passed in as query parameters and the function will use those to find
@@ -20,7 +23,10 @@ def getNextRoomee(userId):
     optionalFilters = ""
     try:
         conn = psycopg2.connect(
-            DATABASE_URL)
+            host=host,
+            database=db,
+            user=user,
+            password=pw)
         cur = conn.cursor(cursor_factory=RealDictCursor)
         for key in filters:
             if filters[key].isdigit() is False and filters[key] != '':
@@ -70,7 +76,10 @@ def like(userId):
     res = None
     try:
         conn = psycopg2.connect(
-            DATABASE_URL)
+            host=host,
+            database=db,
+            user=user,
+            password=pw)
         cur = conn.cursor(cursor_factory=RealDictCursor)
         if request.method == "GET":
             cur.execute("SELECT users.id, Firstname, Lastname, bio \
@@ -111,7 +120,10 @@ def getUserProfile(userId):
     res = None
     try:
         conn = psycopg2.connect(
-            DATABASE_URL)
+            host=host,
+            database=db,
+            user=user,
+            password=pw)
         cur = conn.cursor(cursor_factory=RealDictCursor)
         cur.execute('SELECT * \
                         FROM users \
@@ -133,7 +145,10 @@ def resetDislikes(userId):
     res = None
     try:
         conn = psycopg2.connect(
-            DATABASE_URL)
+            host=host,
+            database=db,
+            user=user,
+            password=pw)
         cur = conn.cursor(cursor_factory=RealDictCursor)
         cur.execute('DELETE FROM dislikes WHERE userId=%s', [userId])
         conn.commit()

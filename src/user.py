@@ -1,14 +1,17 @@
 from flask import Flask, Blueprint, request, jsonify
 import psycopg2
 from psycopg2.extras import RealDictCursor
+import os
 
 bp = Blueprint('user', __name__)
-
+DATABASE_URL = os.environ['DATABASE_URL']
 
 # This function handles fetching the next user in the db that satisfies the user's filters.
 # the user's filters will be passed in as query parameters and the function will use those to find
 # matching users in the filters database. it will also have to cross reference the dislikes and likes database
 # and avoid showing roomees who are already in those two tables for the user. Also shouldn't show the user.
+
+
 @bp.route('/search/<userId>', methods=['GET'])
 def getNextRoomee(userId):
     conn = None
@@ -17,10 +20,7 @@ def getNextRoomee(userId):
     optionalFilters = ""
     try:
         conn = psycopg2.connect(
-            host="localhost",
-            database="roomee",
-            user="postgres",
-            password=" ")
+            DATABASE_URL)
         cur = conn.cursor(cursor_factory=RealDictCursor)
         for key in filters:
             if filters[key].isdigit() is False and filters[key] != '':
@@ -70,10 +70,7 @@ def like(userId):
     res = None
     try:
         conn = psycopg2.connect(
-            host="localhost",
-            database="roomee",
-            user="postgres",
-            password=" ")
+            DATABASE_URL)
         cur = conn.cursor(cursor_factory=RealDictCursor)
         if request.method == "GET":
             cur.execute("SELECT users.id, Firstname, Lastname, bio \
@@ -114,10 +111,7 @@ def getUserProfile(userId):
     res = None
     try:
         conn = psycopg2.connect(
-            host="localhost",
-            database="roomee",
-            user="postgres",
-            password=" ")
+            DATABASE_URL)
         cur = conn.cursor(cursor_factory=RealDictCursor)
         cur.execute('SELECT * \
                         FROM users \
@@ -139,10 +133,7 @@ def resetDislikes(userId):
     res = None
     try:
         conn = psycopg2.connect(
-            host="localhost",
-            database="roomee",
-            user="postgres",
-            password=" ")
+            DATABASE_URL)
         cur = conn.cursor(cursor_factory=RealDictCursor)
         cur.execute('DELETE FROM dislikes WHERE userId=%s', [userId])
         conn.commit()

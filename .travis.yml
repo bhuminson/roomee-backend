@@ -1,0 +1,14 @@
+language: python
+
+python:
+  - 3.8
+
+install:
+  - pip install -r requirements.txt
+
+before_script:
+  - export FLASK_APP="init.py"
+  - export FLASK_ENV=development
+
+script:
+  - flask --help

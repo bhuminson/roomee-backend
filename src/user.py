@@ -9,6 +9,54 @@ bp = Blueprint('user', __name__)
 # the user's filters will be passed in as query parameters and the function will use those to find
 # matching users in the filters database. it will also have to cross reference the dislikes and likes database
 # and avoid showing roomees who are already in those two tables for the user. Also shouldn't show the user.
+@bp.route('/search/<userId>', methods=['GET'])
+def getNextRoomee(userId):
+    conn = None
+    res = {}
+    filters = request.args
+    optionalFilters = ""
+    try:
+        conn = psycopg2.connect(
+            host="localhost",
+            database="roomee",
+            user="postgres",
+            password=" ")
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        for key in filters:
+            if filters[key].isdigit() is False and filters[key] != '':
+                optionalFilters += ' AND f.' + key + '="' + filters[key]+'"'
+        cur.execute('SELECT * \
+                            FROM users u \
+                            JOIN filters AS f ON u.id=f.userId \
+                            WHERE \
+                            (f.age BETWEEN %s AND %s) AND \
+                            (f.graduation_year BETWEEN %s AND %s) AND \
+                            (f.clean BETWEEN %s AND %s) AND \
+                            (f.noise BETWEEN %s AND %s)' + optionalFilters
+                    + ' AND u.id NOT IN ( \
+                                SELECT likeId \
+                                FROM likes \
+                                WHERE userId = %s \
+                            ) \
+                            AND u.id NOT IN ( \
+                                SELECT dislikeId \
+                                FROM dislikes\
+                                WHERE userId = %s \
+                            ) \
+                            AND u.id <> %s', [filters['min_age'], filters['max_age'],
+                                              filters['min_graduation_year'], filters['max_graduation_year'],
+                                              filters['min_clean'], filters['max_clean'], filters['min_noise'],
+                                              filters['max_noise'], userId, userId, userId])
+        roomee = cur.fetchone()
+        print(roomee)
+        res = roomee if roomee is not None else {}
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
+        return res
 
 
 # @bp.route('/search/<userId>', methods=['GET'])

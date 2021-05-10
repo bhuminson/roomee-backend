@@ -129,7 +129,7 @@ def getUserProfile(userId):
                         FROM users \
                         JOIN filters on id=filters.userId \
                         JOIN login_info on id=login_info.userId \
-                        WHERE id=?', (userId))
+                        WHERE id=%s', [userId])
         res = cur.fetchone()
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
@@ -151,6 +151,33 @@ def resetDislikes(userId):
             password=pw)
         cur = conn.cursor(cursor_factory=RealDictCursor)
         cur.execute('DELETE FROM dislikes WHERE userId=%s', [userId])
+        conn.commit()
+        resp = jsonify(success=True)
+        resp.status_code = 201
+        res = resp
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
+        return res
+
+
+@bp.route('/unlike', methods=['DELETE'])
+def unlike():
+    userId = request.args['userId']
+    roomeeId = request.args['roomeeId']
+    res = None
+    try:
+        conn = psycopg2.connect(
+            host=host,
+            database=db,
+            user=user,
+            password=pw)
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        cur.execute('DELETE FROM likes WHERE userId=%s AND likeId=%s', [
+                    userId, roomeeId])
         conn.commit()
         resp = jsonify(success=True)
         resp.status_code = 201

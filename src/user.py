@@ -1,4 +1,5 @@
 from flask import Flask, Blueprint, request, jsonify
+from .constants import host, db, user, pw
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import os

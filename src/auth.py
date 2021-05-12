@@ -1,23 +1,31 @@
 import functools
-
+from .constants import host, db, user, pw
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for, jsonify
 )
 from werkzeug.security import check_password_hash, generate_password_hash
-
+import psycopg2
+from psycopg2.extras import RealDictCursor
+import json
 
 bp = Blueprint('auth', __name__)
 
 
 @bp.route('/register', methods=['POST'])
 def register():
-    if request.method == 'POST':
-        print(request.json)
+    res = None
+    try:
+        conn = psycopg2.connect(
+            host=host,
+            database=db,
+            user=user,
+            password=pw)
+        cur = conn.cursor(cursor_factory=RealDictCursor)
         username = request.json['username']
         password = request.json['password']
-        firstname = request.json['Firstname']
-        lastname = request.json['Lastname']
-        nickname = request.json['Nickname']
+        firstname = request.json['firstname']
+        lastname = request.json['lastname']
+        nickname = request.json['nickname']
         phone = request.json['phone']
         email = request.json['email']
         age = request.json['age']
@@ -36,7 +44,6 @@ def register():
         visible_phone = ''
         visible_email = ''
 
-        db = get_db()
         error = None
 
         if username == '':
@@ -44,36 +51,75 @@ def register():
         elif password == '':
             error = 'Password is required.'
 
-        # broken
-        # elif db.execute(
-        #     'SELECT id FROM users WHERE username = ?', (username)
-        # ).fetchone() is not None:
-        #     error = 'User {} is already registered.'.format(username)
+        # # broken
+        # # elif db.execute(
+        # #     'SELECT id FROM users WHERE username = %s', (username)
+        # # ).fetchone() is not None:
+        # #     error = 'User {} is already registered.'.format(username)
 
         if error is None:
-            db.execute(
-                'INSERT INTO users (username, firstname, lastname, nickname, phone, email) VALUES (?, ?, ?, ?, ?, ?)',
-                (username, firstname, lastname, nickname, phone, email)
+            cur.execute(
+                'INSERT INTO users (username, firstname, lastname, nickname, phone, email) VALUES (%s, %s, %s, %s, %s, %s)',
+                [username, firstname, lastname, nickname, phone, email]
             )
             # broken
             # db.execute(
-            #     'INSERT INTO login_info (password) VALUES ( ?)',
+            #     'INSERT INTO login_info (password) VALUES ( %s)',
             #     (password)
             # )
-            db.execute(
-                'INSERT INTO filters (age, gender, school, major, school_year, graduation_year, leasing_q, car, pet, clean, noise, drink, smoke, visible_phone, visible_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                (age, gender, school, major, school_year, graduation_year, leasing_q,
-                 car, pet, clean, noise, drink, smoke, visible_phone, visible_email)
+            cur.execute(
+                'INSERT INTO filters (age, gender, school, major, school_year, graduation_year, leasing_q, car, pet, clean, noise, drink, smoke, visible_phone, visible_email) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                [age, gender, school, major, school_year, graduation_year, leasing_q,
+                 car, pet, clean, noise, drink, smoke, visible_phone, visible_email]
             )
-            db.commit()
-            db.close()
+            conn.commit()
             resp = jsonify(success=True)
             resp.status_code = 201
-            return resp
-        return error, 201
-    resp = jsonify(success=True)
-    resp.status_code = 201
-    return resp
+            res = resp
+            print("posted new user")
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
+        return res
+
+
+@bp.route('/image', methods=['GET', 'POST'])
+def image():
+    conn = None
+    res = None
+    image = request.files.get('img')
+    try:
+        conn = psycopg2.connect(
+            host=host,
+            database=db,
+            user=user,
+            password=pw)
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        if request.method == "GET":
+            print("getting profile image")
+            cur.execute("SELECT ENCODE(img,'base64') FROM profilepics")
+            pic = cur.fetchone()
+            print(pic)
+            res = {"img": pic}
+        elif request.method == "POST":
+            img = image.read()
+            print(psycopg2.Binary(img))
+            cur.execute("INSERT INTO profilepics (img) VALUES (%s)",
+                        [psycopg2.Binary(img)])
+            conn.commit()
+            resp = jsonify(success=True)
+            resp.status_code = 201
+            res = resp
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
+        return res
 
 
 @bp.route('/login', methods=('GET', 'POST'))
@@ -84,7 +130,7 @@ def login():
         db = get_db()
         error = None
         user = db.execute(
-            'SELECT * FROM login WHERE username = ?', (username,)
+            'SELECT * FROM login WHERE username = %s', (username,)
         ).fetchone()
 
         if user is None:
@@ -110,7 +156,7 @@ def load_logged_in_user():
         g.user = None
     else:
         g.user = get_db().execute(
-            'SELECT * FROM users WHERE id = ?', (user_id,)
+            'SELECT * FROM users WHERE id = %s', (user_id,)
         ).fetchone()
 
 

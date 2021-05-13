@@ -25,9 +25,9 @@ cycle;
 CREATE TABLE users (
     id INT PRIMARY KEY NOT NULL DEFAULT NEXTVAL('userids'), 
     username varchar(30) NOT NULL,
-    Firstname varchar(30) NOT NULL,
-    Lastname varchar(30) NOT NULL,
-    Nickname varchar(30) NOT NULL,
+    firstname varchar(30) NOT NULL,
+    lastname varchar(30) NOT NULL,
+    nickname varchar(30) NOT NULL,
     phone varchar(40),
     email varchar(40) NOT NULL,
     bio varchar(300)
@@ -71,6 +71,7 @@ CREATE TABLE filters (
     visible_email varchar(20), -- true means show email, false means hide it
     FOREIGN KEY (userId) REFERENCES users(id)
 );
+
 INSERT INTO "filters" VALUES(1,22,'Male', 'Cal Poly', 'Humanities', 'Freshman', 2022,'Leasing', TRUE, TRUE, 4,2,'Yes', 'Yes', 'Yes', TRUE, TRUE);
 INSERT INTO "filters" VALUES(2,18,'Male', 'Cal Poly', 'STEM', 'Freshman', 2022,'Leasing', TRUE, TRUE, 4,2,'Yes', 'Yes', 'Yes', FALSE, TRUE);
 INSERT INTO "filters" VALUES(3,25,'Male', 'Cal Poly', 'Humanities', 'Freshman', 2022,'Leasing', TRUE, TRUE, 4,2,'Yes', 'Yes', 'Yes', TRUE, TRUE);

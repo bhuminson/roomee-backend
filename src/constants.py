@@ -1,5 +1,5 @@
 # THIS SHOULD ALWAYS BE FALSE IN MAIN
-dev = True
+dev = False
 
 host = "ec2-18-215-111-67.compute-1.amazonaws.com"
 db = "dbv08kj3kcvmh2"

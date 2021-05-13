@@ -1,9 +1,7 @@
-import os
 from src import auth
 from src import user
 from flask import Flask
 from flask_cors import CORS
-import psycopg2
 
 app = Flask(__name__, instance_relative_config=True)
 CORS(app)

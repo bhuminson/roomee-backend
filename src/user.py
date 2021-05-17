@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify
 from .db import executeQuery
 
 bp = Blueprint('user', __name__)
@@ -38,6 +38,15 @@ def getNextRoomee(userId):
                          userId, userId, userId])
 
 
+@bp.route('/user/<userId>', methods=['GET'])
+def getUserProfile(userId):
+    return executeQuery('SELECT * \
+                        FROM users \
+                        JOIN filters on id=filters.userId \
+                        JOIN login_info on id=login_info.userId \
+                        WHERE id=%s', [userId])
+
+
 @ bp.route('/like/<userId>', methods=['GET', 'POST'])
 # route parameters
 #     liked - boolean
@@ -65,23 +74,14 @@ def like(userId):
                             [userId, roomee], commit=True)
 
 
-@bp.route('/user/<userId>', methods=['GET'])
-def getUserProfile(userId):
-    return executeQuery('SELECT * \
-                        FROM users \
-                        JOIN filters on id=filters.userId \
-                        JOIN login_info on id=login_info.userId \
-                        WHERE id=%s', [userId])
-
-
-@bp.route('/resetDislike/<userId>', methods=['DELETE'])
-def resetDislikes(userId):
-    return executeQuery('DELETE FROM dislikes WHERE userId=%s', [userId], commit=True)
-
-
 @bp.route('/unlike', methods=['DELETE'])
 def unlike():
     userId = request.args['userId']
     roomeeId = request.args['roomeeId']
     return executeQuery('DELETE FROM likes WHERE userId=%s AND likeId=%s', [
         userId, roomeeId], commit=True)
+
+
+@bp.route('/resetDislike/<userId>', methods=['DELETE'])
+def resetDislikes(userId):
+    return executeQuery('DELETE FROM dislikes WHERE userId=%s', [userId], commit=True)

@@ -1,16 +1,9 @@
-from collections import UserDict
-import functools
-from src.db import executeQuery
-from .constants import host, db, user, pw
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for, jsonify
-)
-from werkzeug.security import check_password_hash, generate_password_hash
-import psycopg2
-from psycopg2.extras import RealDictCursor
-import json
 
-bp = Blueprint('auth', __name__)
+from src.db import executeQuery
+from flask import (Blueprint, request)
+import psycopg2
+
+bp = Blueprint('register', __name__)
 
 
 @bp.route('/register', methods=['POST'])

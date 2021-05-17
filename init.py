@@ -1,4 +1,4 @@
-from src import auth
+from src import register
 from src import user
 from flask import Flask
 from flask_cors import CORS
@@ -6,7 +6,7 @@ from flask_cors import CORS
 app = Flask(__name__, instance_relative_config=True)
 CORS(app)
 app.register_blueprint(user.bp)
-app.register_blueprint(auth.bp)
+app.register_blueprint(register.bp)
 
 
 @app.route('/')

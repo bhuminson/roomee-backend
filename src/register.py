@@ -52,9 +52,16 @@ def image(userId):
     if request.method == "GET":
         img = executeQuery(
             "SELECT ENCODE(img,'base64') FROM profilepics WHERE id=%s", [userId])
-        return {"img": img}
+        return img
     elif request.method == "POST":
         image = request.files.get('img')
         img = image.read()
         return executeQuery("INSERT INTO profilepics (img) VALUES (%s)",
                             [psycopg2.Binary(img)], commit=True)
+
+
+@bp.route('/resetImages', methods=['DELETE'])
+def resetImages():
+    executeQuery('ALTER SEQUENCE pfpids RESTART WITH 1',
+                 [], commit=True)
+    return executeQuery('DELETE FROM profilepics', [], commit=True)

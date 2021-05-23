@@ -31,10 +31,9 @@ CREATE TABLE users (
     phone varchar(40),
     email varchar(40) NOT NULL,
     bio varchar(300)
-    -- we can uncomment after we get posting finished
-    -- UNIQUE(username),
-    -- UNIQUE(phone),
-    -- UNIQUE(email)
+    UNIQUE(username),
+    UNIQUE(phone),
+    UNIQUE(email)
 );
 
 INSERT INTO "users" VALUES(1,'dayday23','Draymond','Green','Day day','5105105100','dayday23@gmail.com', 'pf/c at gsw');

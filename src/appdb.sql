@@ -46,12 +46,28 @@ CREATE TABLE users (
     -- UNIQUE(email)
 );
 
+CREATE TABLE test_users (
+    id SERIAL PRIMARY KEY NOT NULL, 
+    username varchar(30) NOT NULL,
+    firstname varchar(30) NOT NULL,
+    lastname varchar(30) NOT NULL,
+    nickname varchar(30) NOT NULL,
+    phone varchar(40),
+    email varchar(40) NOT NULL,
+    bio varchar(300),
+    UNIQUE(username),
+    UNIQUE(phone),
+    UNIQUE(email)
+);
+
 INSERT INTO "users" VALUES(1,'dayday23','Draymond','Green','Day day','5105105100','dayday23@gmail.com', 'pf/c at gsw');
 INSERT INTO "users" VALUES(2,'goat43','LeBron','James','bron','9495628685','lebronjames@gmail.com', 'go lakers');
 INSERT INTO "users" VALUES(3,'curry30','Stephen','Curry','steph','97979797979','curry@gmail.com', 'pg at gsw');
 INSERT INTO "users" VALUES(4,'damedolla','Damian','Lilliard','dame','13131313131','dametime@gmail.com', 'pg at portland');
 INSERT INTO "users" VALUES(5,'asdfasdf','Zion','Williamson','zion','6464646464','zion@gmail.com', 'pf/c at nop');
 INSERT INTO "users" VALUES(6,'asdfasdf','Kim','Kardashian','kk','6464646464','kk@gmail.com', 'my bio');
+
+INSERT INTO "test_users" VALUES (1, 'yuyaU', 'yuya', 'shimbori', 'myNickname', '999111222', 'q3@gmail.com', 'pf/c at gsw');
 
 CREATE TABLE profilepics (
     id INT PRIMARY KEY NOT NULL DEFAULT NEXTVAL('pfpids'),

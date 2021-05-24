@@ -59,17 +59,31 @@ CREATE TABLE filters (
     school_year varchar(50) NOT NULL, -- ie 4th year puts 4
     graduation_year INTEGER NOT NULL,
     leasing_q varchar(20) NOT NULL, -- leasing or searching
-    car varchar(20) NOT NULL, -- 0 for false, 1 for true
-    pet varchar(20) NOT NULL, -- 0 for false, 1 for true
     clean INTEGER NOT NULL, -- scale from 0 to 10
     noise INTEGER NOT NULL, --scale from 0 to 10
-    drink varchar(20) NOT NULL, -- yes, no, sometimes
-    smoke varchar(20) NOT NULL, -- yes, no, sometimes
-    drugs varchar(20), -- yes, no, sometimes
-    visible_phone varchar(20), -- true means show phone, false means hide it
-    visible_email varchar(20), -- true means show email, false means hide it
+    drink boolean NOT NULL, -- boolean
+    smoke boolean NOT NULL, -- boolean
+    drugs boolean NOT NULL, -- boolean
+    car boolean NOT NULL, -- boolean
+    pet boolean NOT NULL, -- boolean
+    visible_phone varchar(20), -- boolean
+    visible_email varchar(20), -- boolean
     FOREIGN KEY (userId) REFERENCES users(id)
 );
+
+INSERT INTO "filters" VALUES(1,22,'Male', 'Cal Poly', 'Humanities', 'Freshman', 2022,'Leasing', 4, 2, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE);
+INSERT INTO "filters" VALUES(2,18,'Male', 'Cal Poly', 'STEM', 'Freshman', 2022,'Leasing', 4, 2, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE);
+INSERT INTO "filters" VALUES(3,25,'Male', 'Cal Poly', 'Humanities', 'Freshman', 2022,'Leasing', 4, 2, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE);
+INSERT INTO "filters" VALUES(4,29,'Male', 'Cal Poly', 'STEM', 'Freshman', 2022,'Leasing',4, 2, TRUE, TRUE, TRUE, TRUE, TRUE,  FALSE, FALSE);
+INSERT INTO "filters" VALUES(5,26,'Male', 'Cal Poly', 'Business', 'Freshman', 2022,'Leasing', 4, 2, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE);
+INSERT INTO "filters" VALUES(6,26,'Female', 'Cal Poly', 'Business', 'Freshman', 2022,'Leasing', 4, 2, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE);
+
+CREATE TABLE login_info (
+    userId SERIAL PRIMARY KEY,
+    password varchar(30) NOT NULL,
+    FOREIGN KEY (userId) REFERENCES users(id)
+);
+INSERT INTO "login_info" VALUES(1,'dayday23');
 
 CREATE TABLE likes (
     id SERIAL PRIMARY KEY,

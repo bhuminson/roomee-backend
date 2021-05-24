@@ -10,18 +10,18 @@ from flask_login import (
 app = Flask(__name__)
 CORS(app)
 
-app.config.update(
-    DEBUG=True,
-    SECRET_KEY="secret_sauce",
-    SESSION_COOKIE_HTTPONLY=True,
-    REMEMBER_COOKIE_HTTPONLY=True,
-    SESSION_COOKIE_SAMESITE="Lax",
-)
+# app.config.update(
+#     DEBUG=True,
+#     SECRET_KEY="secret_sauce",
+#     SESSION_COOKIE_HTTPONLY=True,
+#     REMEMBER_COOKIE_HTTPONLY=True,
+#     SESSION_COOKIE_SAMESITE="Lax",
+# )
 
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.session_protection = "strong"
-login_manager.login_message = "Welcome to Roomee!"
+# login_manager = LoginManager()
+# login_manager.init_app(app)
+# login_manager.session_protection = "strong"
+# login_manager.login_message = "Welcome to Roomee!"
 
 # Unused at the moment
 # @login_manager.user_loader

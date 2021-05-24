@@ -1,6 +1,8 @@
-from flask import Blueprint, request, jsonify
-from .db import executeQuery
+from src.Lib.likes import *
+from src.Lib.dislikes import *
 from src.Lib.users import *
+from flask import Blueprint, request, jsonify
+
 
 bp = Blueprint('user', __name__)
 
@@ -32,25 +34,22 @@ def like(userId):
             resp = jsonify(success=False)
             resp.status_code = 500
         if liked == "true":
-            return executeQuery("INSERT INTO likes (userId, likeId) VALUES(%s, %s)",
-                                [userId, roomee], commit=True)
-        return executeQuery("INSERT INTO dislikes (userId, dislikeId) VALUES(%s, %s)",
-                            [userId, roomee], commit=True)
+            return likeRoomee(userId, roomee)
+        return dislikeRoomee(userId, roomee)
 
 
 @bp.route('/unlike', methods=['DELETE'])
 def unlike():
     userId = request.args['userId']
     roomeeId = request.args['roomeeId']
-    return executeQuery('DELETE FROM likes WHERE userId=%s AND likeId=%s', [
-        userId, roomeeId], commit=True)
+    return removeLike(userId, roomeeId)
 
 
 @bp.route('/resetDislike/<userId>', methods=['DELETE'])
 def resetDislikes(userId):
-    return executeQuery('DELETE FROM dislikes WHERE userId=%s', [userId], commit=True)
+    return resetDislikes(userId)
 
 
 @bp.route('/resetLike/<userId>', methods=['DELETE'])
 def resetLikes(userId):
-    return executeQuery('DELETE FROM likes WHERE userId=%s', [userId], commit=True)
+    return resetLikes(userId)

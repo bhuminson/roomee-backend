@@ -1,5 +1,5 @@
-
 from src.db import executeQuery
+from src.Lib.users import *
 from flask import (Blueprint, request)
 import psycopg2
 
@@ -39,8 +39,7 @@ def register():
         error = 'Password is required.'
 
     if error is None:
-        executeQuery('INSERT INTO users (username, firstname, lastname, nickname, phone, email) VALUES (%s, %s, %s, %s, %s, %s)',
-                     [username, firstname, lastname, nickname, phone, email], commit=True)
+        createNewUser(username, firstname, lastname, nickname, phone, email)
         return executeQuery('INSERT INTO filters (age, gender, school, major, school_year, graduation_year, leasing_q, car, pet, clean, noise, drink, smoke, visible_phone, visible_email) \
                         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
                             [age, gender, school, major, school_year, graduation_year, leasing_q,

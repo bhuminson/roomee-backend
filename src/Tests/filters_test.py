@@ -1,20 +1,13 @@
-from db import executeQuery
 import pytest
+from src.Lib.users import createNewUser, getNextMatchingRoomee
+from src.Lib.filters import createNewUserFilters
+from src.Tests.test_data import *
 
-def insertTestData():
-    executeQuery("INSERT INTO test_users VALUES  (1, Bhumin) ")
-    executeQuery("INSERT ... INTO test_users")
-    executeQuery("INSERT ... INTO test_users")
-    executeQuery("INSERT ... INTO test_users")
-    executeQuery("INSERT (1, no pets) INTO test_filters")
-    executeQuery("INSERT ... INTO test_filters")
-    executeQuery("INSERT ... INTO test_filters")
-    executeQuery("INSERT ... INTO test_filters")
 
-def test1():
-    result = executeQuery('SELECT * \
-                            FROM test_users u \
-                            JOIN test_filters AS f ON u.id=f.userId \
-                            WHERE \
-                            pets = "no pets')
-    assertEquals(result, {'1', 'Bhumin'})
+def testFilters():
+    result = getNextMatchingRoomee(1, filter1)
+    assert result == user2
+
+
+if __name__ == "__main__":
+    testFilters()

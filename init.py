@@ -35,7 +35,7 @@ CORS(app)
 
 
 app.register_blueprint(user.bp)
-app.register_blueprint(login.bp)
+# app.register_blueprint(login.bp)
 app.register_blueprint(register.bp)
 
 

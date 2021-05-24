@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS dislikes;
 DROP TABLE IF EXISTS users;
 DROP SEQUENCE IF EXISTS userids;
 DROP SEQUENCE IF EXISTS filterids;
+DROP SEQUENCE IF EXISTS pfpids;
 
 CREATE SEQUENCE userids
 start with 7
@@ -20,6 +21,14 @@ increment by 1
 minvalue 7
 maxvalue 100
 cycle;
+
+CREATE SEQUENCE pfpids
+start with 1
+increment by 1
+minvalue 1
+maxvalue 100
+cycle;
+
 
 
 CREATE TABLE users (
@@ -44,7 +53,7 @@ INSERT INTO "users" VALUES(5,'asdfasdf','Zion','Williamson','zion','6464646464',
 INSERT INTO "users" VALUES(6,'asdfasdf','Kim','Kardashian','kk','6464646464','kk@gmail.com', 'my bio');
 
 CREATE TABLE profilepics (
-    id SERIAL PRIMARY KEY,
+    id INT PRIMARY KEY NOT NULL DEFAULT NEXTVAL('pfpids'),
     -- userId INTEGER NOT NULL,
     img bytea
     -- FOREIGN KEY (userId) REFERENCES users(id)

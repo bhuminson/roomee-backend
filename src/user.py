@@ -49,3 +49,8 @@ def unlike():
 @bp.route('/resetDislike/<userId>', methods=['DELETE'])
 def resetDislikes(userId):
     return executeQuery('DELETE FROM dislikes WHERE userId=%s', [userId], commit=True)
+
+
+@bp.route('/resetLike/<userId>', methods=['DELETE'])
+def resetLikes(userId):
+    return executeQuery('DELETE FROM likes WHERE userId=%s', [userId], commit=True)

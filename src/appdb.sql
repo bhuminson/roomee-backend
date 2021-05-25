@@ -102,7 +102,7 @@ CREATE TABLE dislikes (
     FOREIGN KEY (dislikeId) REFERENCES users(id)
 );
 
-CREATE TABLE login_info (
+CREATE TABLE test_login_info (
     userId SERIAL PRIMARY KEY,
     password varchar(30) NOT NULL,
     FOREIGN KEY (userId) REFERENCES users(id)

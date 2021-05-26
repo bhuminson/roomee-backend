@@ -22,7 +22,7 @@ def getNextMatchingRoomee(userId, filters):
     categoricalFilters = ""
     for key in filters:
         if filters[key].isdigit() is False and filters[key] != '':
-            categoricalFilters += ' AND f.' + key + '="' + filters[key]+'"'
+            categoricalFilters += ' AND f.' + key + " = \'" + filters[key]+"\'"
     return executeQuery(sql.SQL('SELECT * \
                             FROM {} u \
                             JOIN {} AS f ON u.id=f.userId \

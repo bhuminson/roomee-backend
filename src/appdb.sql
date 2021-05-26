@@ -39,7 +39,7 @@ CREATE TABLE users (
     nickname varchar(30) NOT NULL,
     phone varchar(40),
     email varchar(40) NOT NULL,
-    bio varchar(300)
+    bio varchar(300),
     UNIQUE(username),
     UNIQUE(phone),
     UNIQUE(email)
@@ -70,20 +70,6 @@ CREATE TABLE filters (
     visible_email varchar(20), -- boolean
     FOREIGN KEY (userId) REFERENCES users(id)
 );
-
-INSERT INTO "filters" VALUES(1,22,'Male', 'Cal Poly', 'Humanities', 'Freshman', 2022,'Leasing', 4, 2, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE);
-INSERT INTO "filters" VALUES(2,18,'Male', 'Cal Poly', 'STEM', 'Freshman', 2022,'Leasing', 4, 2, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE);
-INSERT INTO "filters" VALUES(3,25,'Male', 'Cal Poly', 'Humanities', 'Freshman', 2022,'Leasing', 4, 2, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE);
-INSERT INTO "filters" VALUES(4,29,'Male', 'Cal Poly', 'STEM', 'Freshman', 2022,'Leasing',4, 2, TRUE, TRUE, TRUE, TRUE, TRUE,  FALSE, FALSE);
-INSERT INTO "filters" VALUES(5,26,'Male', 'Cal Poly', 'Business', 'Freshman', 2022,'Leasing', 4, 2, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE);
-INSERT INTO "filters" VALUES(6,26,'Female', 'Cal Poly', 'Business', 'Freshman', 2022,'Leasing', 4, 2, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE);
-
-CREATE TABLE login_info (
-    userId SERIAL PRIMARY KEY,
-    password varchar(30) NOT NULL,
-    FOREIGN KEY (userId) REFERENCES users(id)
-);
-INSERT INTO "login_info" VALUES(1,'dayday23');
 
 CREATE TABLE likes (
     id SERIAL PRIMARY KEY,
@@ -116,7 +102,7 @@ CREATE TABLE test_users (
     nickname varchar(30) NOT NULL,
     phone varchar(40),
     email varchar(40) NOT NULL,
-    bio varchar(300)
+    bio varchar(300),
     UNIQUE(username),
     UNIQUE(phone),
     UNIQUE(email)
@@ -143,18 +129,20 @@ CREATE TABLE test_filters (
     FOREIGN KEY (userId) REFERENCES test_users(id)
 );
 
+--------------------------------------------------------------------------------------------------------------------------
+
 INSERT INTO "users" VALUES(1,'dayday23','Draymond','Green','Day day','5105105100','dayday23@gmail.com', 'pf/c at gsw');
 INSERT INTO "users" VALUES(2,'goat43','LeBron','James','bron','9495628685','lebronjames@gmail.com', 'go lakers');
 INSERT INTO "users" VALUES(3,'curry30','Stephen','Curry','steph','97979797979','curry@gmail.com', 'pg at gsw');
 INSERT INTO "users" VALUES(4,'damedolla','Damian','Lilliard','dame','13131313131','dametime@gmail.com', 'pg at portland');
-INSERT INTO "users" VALUES(5,'asdfasdf','Zion','Williamson','zion','6464646464','zion@gmail.com', 'pf/c at nop');
-INSERT INTO "users" VALUES(6,'asdfasdf','Kim','Kardashian','kk','6464646464','kk@gmail.com', 'my bio');
+INSERT INTO "users" VALUES(5,'asdfasdf','Zion','Williamson','zion','525234235','zion@gmail.com', 'pf/c at nop');
+INSERT INTO "users" VALUES(6,'asdfafd','Kim','Kardashian','kk','6464646464','kk@gmail.com', 'my bio');
 
-INSERT INTO "filters" VALUES(1,22,'Male', 'Cal Poly', 'Humanities', 'Freshman', 2022,'Leasing', TRUE, TRUE, 4,2,'Yes', 'Yes', 'Yes', TRUE, TRUE);
-INSERT INTO "filters" VALUES(2,18,'Male', 'Cal Poly', 'STEM', 'Freshman', 2022,'Leasing', TRUE, TRUE, 4,2,'Yes', 'Yes', 'Yes', FALSE, TRUE);
-INSERT INTO "filters" VALUES(3,25,'Male', 'Cal Poly', 'Humanities', 'Freshman', 2022,'Leasing', TRUE, TRUE, 4,2,'Yes', 'Yes', 'Yes', TRUE, TRUE);
-INSERT INTO "filters" VALUES(4,29,'Male', 'Cal Poly', 'STEM', 'Freshman', 2022,'Leasing', TRUE, TRUE, 4,2,'Yes', 'Yes', 'Yes', FALSE, FALSE);
-INSERT INTO "filters" VALUES(5,26,'Male', 'Cal Poly', 'Business', 'Freshman', 2022,'Leasing', TRUE, TRUE, 4,2,'Yes', 'Yes', 'Yes', FALSE, FALSE);
-INSERT INTO "filters" VALUES(6,26,'Female', 'Cal Poly', 'Business', 'Freshman', 2022,'Leasing', TRUE, TRUE, 4,2,'Yes', 'Yes', 'Yes', FALSE, FALSE);
+INSERT INTO "filters" VALUES(1,22,'Male', 'Cal Poly', 'Humanities', 'Freshman', 2022,'Leasing', 4, 2, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE);
+INSERT INTO "filters" VALUES(2,18,'Male', 'Cal Poly', 'STEM', 'Freshman', 2022,'Leasing', 4, 2, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE);
+INSERT INTO "filters" VALUES(3,25,'Male', 'Cal Poly', 'Humanities', 'Freshman', 2022,'Leasing', 4, 2, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE);
+INSERT INTO "filters" VALUES(4,29,'Male', 'Cal Poly', 'STEM', 'Freshman', 2022,'Leasing', 4, 2, FALSE, FALSE, FALSE, FALSE, FALSE,  FALSE, FALSE);
+INSERT INTO "filters" VALUES(5,26,'Male', 'Cal Poly', 'Business', 'Freshman', 2022,'Leasing', 4, 2, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE);
+INSERT INTO "filters" VALUES(6,26,'Female', 'Cal Poly', 'Business', 'Freshman', 2022,'Leasing', 4, 2, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE);
 
 INSERT INTO "login_info" VALUES(1,'dayday23');

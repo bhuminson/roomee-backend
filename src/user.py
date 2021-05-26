@@ -47,9 +47,9 @@ def unlike():
 
 @bp.route('/resetDislike/<userId>', methods=['DELETE'])
 def resetDislikes(userId):
-    return resetDislikes(userId)
+    return clearDislikesTable(userId)
 
 
 @bp.route('/resetLike/<userId>', methods=['DELETE'])
 def resetLikes(userId):
-    return resetLikes(userId)
+    return clearLikesTable(userId)

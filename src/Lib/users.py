@@ -67,5 +67,7 @@ def getProfile(userId):
 
 
 def deleteAllUsers():
+    executeQuery('ALTER SEQUENCE userids RESTART WITH 1',
+                 [], commit=True)
     return executeQuery(sql.SQL('DELETE FROM {}')
                         .format(sql.Identifier(usersTable)), [], commit=True)

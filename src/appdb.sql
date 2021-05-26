@@ -13,14 +13,14 @@ DROP SEQUENCE IF EXISTS pfpids;
 CREATE SEQUENCE userids
 start with 7
 increment by 1
-minvalue 7
+minvalue 1
 maxvalue 100
 cycle;
 
 CREATE SEQUENCE filterids
 start with 7
 increment by 1
-minvalue 7
+minvalue 1
 maxvalue 100
 cycle;
 
@@ -95,7 +95,7 @@ CREATE TABLE login_info (
 );
 
 CREATE TABLE test_users (
-    id SERIAL PRIMARY KEY NOT NULL, 
+    id INT PRIMARY KEY NOT NULL DEFAULT NEXTVAL('userids'), 
     username varchar(30) NOT NULL,
     firstname varchar(30) NOT NULL,
     lastname varchar(30) NOT NULL,
@@ -109,7 +109,7 @@ CREATE TABLE test_users (
 );
 
 CREATE TABLE test_filters (
-    userId SERIAL PRIMARY KEY NOT NULL,
+    userId INT PRIMARY KEY NOT NULL DEFAULT NEXTVAL('filterids'),
     age INTEGER NOT NULL,
     gender varchar(20) NOT NULL, -- male, female, non-binary, etc
     school varchar(50) NOT NULL, -- we might consider having a school table with locations, etc

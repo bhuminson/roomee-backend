@@ -26,3 +26,10 @@ def createNewUserFilters(data):
                         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)').format(sql.Identifier(filtersTable)),
                         [age, gender, school, major, school_year, graduation_year, leasing_q,
                          car, pet, clean, noise, drink, smoke, visible_phone, visible_email], commit=True)
+
+
+def deleteAllFilters():
+    executeQuery('ALTER SEQUENCE filterids RESTART WITH 1',
+                 [], commit=True)
+    return executeQuery(sql.SQL('DELETE FROM {}')
+                        .format(sql.Identifier(filtersTable)), [], commit=True)

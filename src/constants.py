@@ -1,5 +1,6 @@
-# THIS SHOULD ALWAYS BE FALSE IN MAIN
+# THESE SHOULD ALWAYS BE FALSE IN MAIN
 dev = False
+testing = False
 
 host = "ec2-23-23-128-222.compute-1.amazonaws.com"
 db = "d4n8vp78jra9c"

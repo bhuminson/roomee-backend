@@ -17,7 +17,7 @@ def removeLike(userId, roomee):
                         [userId, roomee], commit=True)
 
 
-def resetLikes(userId):
+def clearLikesTable(userId):
     executeQuery(sql.SQL('DELETE FROM {} WHERE userId=%s')
                  .format(sql.Identifier(likesTable)),
                  [userId], commit=True)

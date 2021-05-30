@@ -1,5 +1,5 @@
 from src.Lib.users import *
-from src.Lib.filters import createNewUserFilters
+from src.Lib.filters import *
 from src.Tests.test_data import *
 from src.constants import testing
 from init import app
@@ -16,6 +16,7 @@ def resetTestTables():
     if not testing:
         print("You are not in testing mode.")
         return
+    deleteAllFilters()
     deleteAllUsers()
 
 

@@ -22,7 +22,7 @@ def getNextMatchingRoomee(userId, filters):
     categoricalFilters = ""
     for key in filters:
         if filters[key].isdigit() is False and filters[key] != '':
-            categoricalFilters += ' AND f.' + key + '="' + filters[key]+'"'
+            categoricalFilters += ' AND f.' + key + " = \'" + filters[key]+"\'"
     return executeQuery(sql.SQL('SELECT * \
                             FROM {} u \
                             JOIN {} AS f ON u.id=f.userId \
@@ -67,5 +67,7 @@ def getProfile(userId):
 
 
 def deleteAllUsers():
+    executeQuery('ALTER SEQUENCE userids RESTART WITH 1',
+                 [], commit=True)
     return executeQuery(sql.SQL('DELETE FROM {}')
                         .format(sql.Identifier(usersTable)), [], commit=True)

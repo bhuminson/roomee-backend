@@ -19,7 +19,7 @@ def resetTestTables():
     deleteAllUsers()
 
 
-if __name__ == "__main__":
+def testSetup():
     with app.app_context():
         resetTestTables()
         insertTestData()

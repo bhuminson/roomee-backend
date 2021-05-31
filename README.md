@@ -1,39 +1,63 @@
 # Roommate Finder Webapp
 
-Created for CSC 308.
+[![Build Status](https://www.travis-ci.com/bhuminson/roomee-backend.svg?token=EqCjonQA1dTt9y36y2D9&branch=main)](https://www.travis-ci.com/bhuminson/roomee-backend)
 
-Storyboard
+This app helps to find roommates.
 
-https://www.figma.com/proto/8rxP2gVcQi7jWPCHmMs8H2/Roomee-Storyboard-1?scaling=min-zoom&node-id=9%3A71
+# Demo
 
-https://www.figma.com/proto/tpb5Bj8zYiTssFb47HaKl9/Roomee-Storyboard-2?scaling=min-zoom&node-id=9%3A71
+https://roomeeapp.herokuapp.com/#/search
+
+# Features
 
 
-Use Case Diagram
+# Requirement
 
-https://lucid.app/lucidchart/0cc37ee0-4029-4e27-9012-eca02b6bc7c9/edit?page=0_0#?folder_id=home&browser=icon
+* python 3.8
 
-Class Diagram
+# Installation
+create a virtual environment
+```bash
+pip install -r requirements.txt
+```
 
-https://lucid.app/lucidchart/743bffae-8ff5-414e-85b8-c9f92f21bc5d/edit?beaconFlowId=ED9F5D753FEDBE30&page=0_0#?folder_id=home&browser=icon
+# Usage
+This app uses a server on heroku by default.
+```bash
+git clone https://github.com/bhuminson/roomee-backend.git
+cd roomee-backend
+export FLASK_APP=init.py
+export FLASK_ENV=development
+flask run
+```
+# Local server setup
+Install pgadmin4 and create a new server with host, db, user, pw in constants.py.
+copy appdb.sql and run it in pgadmin4. This should create new database.
 
-Presentation for Sprint #1:
-https://docs.google.com/presentation/d/1VnVOg9oqR7JjCn52klt0FEWM4WgXojIOo0x-1p9Sgj8/edit?usp=sharing
+# Development
+In constants.py
+```bash
+dev= True
+```
 
-UML Activity Diagram
-https://lucid.app/lucidchart/40d2dfcb-77d4-45ab-b94e-96a1cdb8047c/edit?beaconFlowId=785C0400F2AED3F2&page=0_0#
+# Testing
+In constants.py
+```
+testing = True
+```
+then
+```bash
+cd/src/Tests
+pytest filename.py
+```
 
-Sequence Diagram:
-https://drive.google.com/file/d/1qboEdvFf0uau7dO0cI9Lz5VxwQCX02cl/view?usp=sharing
 
-Personas and Requirements:
-https://docs.google.com/document/d/1Gs2_K0W1Qs5BgNaClSfoRcqmilykRo5RCQMi8wO3l8g/edit
+# CI/CD
 
-Presentation for Sprint #2:
-https://docs.google.com/presentation/d/1dyYIz8y3vDOtPtw15EiOzYmvoQa0cPkLA0WkmyBHaDw/edit#slide=id.p
 
-Presentation for Sprint #3/End of Quarter:
-https://docs.google.com/presentation/d/1-Z4_lQdph4C32n4tePHQpIyQPNuTsf9nhvMvnxqCqGU/edit#slide=id.p
+
+# Linters
+
 
 Style-Checking:
 

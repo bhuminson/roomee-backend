@@ -1,5 +1,5 @@
 # THESE SHOULD ALWAYS BE FALSE IN MAIN
-dev = True
+dev = False
 testing = False
 
 host = "ec2-23-23-128-222.compute-1.amazonaws.com"

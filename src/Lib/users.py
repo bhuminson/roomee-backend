@@ -19,9 +19,10 @@ def createNewUser(data):
     nickname = data['nickname']
     phone = data['phone']
     email = data['email']
-    return executeQuery(sql.SQL('INSERT INTO {} (username, firstname, lastname, nickname, phone, email) VALUES (%s, %s, %s, %s, %s, %s)')
+    bio = data['bio']
+    return executeQuery(sql.SQL('INSERT INTO {} (username, firstname, lastname, nickname, phone, email, bio) VALUES (%s, %s, %s, %s, %s, %s, %s)')
                         .format(sql.Identifier(getTables()['usersTable'])),
-                        [username, firstname, lastname, nickname, phone, email], commit=True)
+                        [username, firstname, lastname, nickname, phone, email, bio], commit=True)
 
 
 def getNextMatchingRoomee(userId, filters):

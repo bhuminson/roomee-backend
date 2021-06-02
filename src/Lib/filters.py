@@ -1,8 +1,12 @@
 from src.db import executeQuery
-from src.constants import testing
+import src.constants
 from psycopg2 import sql
 
-filtersTable = "test_filters" if testing else "filters"
+
+def getTables():
+    return {
+        'filtersTable': "test_filters" if src.constants.testing else "filters"
+    }
 
 
 def createNewUserFilters(data):
@@ -23,7 +27,7 @@ def createNewUserFilters(data):
     visible_email = ''
     return executeQuery(sql.SQL('INSERT INTO {} (age, gender, school, major, school_year, graduation_year, \
                         leasing_q, car, pet, clean, noise, drink, smoke, visible_phone, visible_email) \
-                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)').format(sql.Identifier(filtersTable)),
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)').format(sql.Identifier(getTables()['filtersTable'])),
                         [age, gender, school, major, school_year, graduation_year, leasing_q,
                          car, pet, clean, noise, drink, smoke, visible_phone, visible_email], commit=True)
 
@@ -32,4 +36,4 @@ def deleteAllFilters():
     executeQuery('ALTER SEQUENCE filterids RESTART WITH 1',
                  [], commit=True)
     return executeQuery(sql.SQL('DELETE FROM {}')
-                        .format(sql.Identifier(filtersTable)), [], commit=True)
+                        .format(sql.Identifier(getTables()['filtersTable'])), [], commit=True)

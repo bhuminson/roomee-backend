@@ -9,6 +9,8 @@ DROP TABLE IF EXISTS test_filters;
 DROP TABLE IF EXISTS test_users;
 DROP SEQUENCE IF EXISTS userids;
 DROP SEQUENCE IF EXISTS filterids;
+DROP SEQUENCE IF EXISTS likeids;
+DROP SEQUENCE IF EXISTS dislikeids;
 DROP SEQUENCE IF EXISTS pfpids;
 DROP SEQUENCE IF EXISTS loginids;
 
@@ -34,6 +36,22 @@ maxvalue 100
 cycle;
 
 CREATE SEQUENCE loginids
+start with 1
+increment by 1
+minvalue 1
+maxvalue 100
+cycle;
+
+
+CREATE SEQUENCE likeids
+start with 1
+increment by 1
+minvalue 1
+maxvalue 100
+cycle;
+
+
+CREATE SEQUENCE dislikeids
 start with 1
 increment by 1
 minvalue 1
@@ -81,7 +99,7 @@ CREATE TABLE filters (
 );
 
 CREATE TABLE likes (
-    id SERIAL PRIMARY KEY,
+    id INT PRIMARY KEY NOT NULL DEFAULT NEXTVAL('likeids'),
     userId INTEGER,
     likeId INTEGER,
     FOREIGN KEY (userId) REFERENCES users(id),
@@ -90,7 +108,7 @@ CREATE TABLE likes (
 
 
 CREATE TABLE dislikes (
-    id SERIAL PRIMARY KEY,
+    id INT PRIMARY KEY NOT NULL DEFAULT NEXTVAL('dislikeids'),
     userId INTEGER,
     dislikeId INTEGER,
     FOREIGN KEY (userId) REFERENCES users(id),
@@ -142,6 +160,22 @@ CREATE TABLE test_login_info (
     userId INT PRIMARY KEY NOT NULL DEFAULT NEXTVAL('loginids'),
     password varchar(30) NOT NULL,
     FOREIGN KEY (userId) REFERENCES test_users(id)
+);
+
+CREATE TABLE test_dislikes (
+    id INT PRIMARY KEY NOT NULL DEFAULT NEXTVAL('dislikeids'),
+    userId INTEGER,
+    dislikeId INTEGER,
+    FOREIGN KEY (userId) REFERENCES test_users(id),
+    FOREIGN KEY (dislikeId) REFERENCES test_users(id)
+);
+
+CREATE TABLE test_likes (
+    id INT PRIMARY KEY NOT NULL DEFAULT NEXTVAL('likeids'),
+    userId INTEGER,
+    likeId INTEGER,
+    FOREIGN KEY (userId) REFERENCES test_users(id),
+    FOREIGN KEY (likeId) REFERENCES test_users(id)
 );
 
 --------------------------------------------------------------------------------------------------------------------------

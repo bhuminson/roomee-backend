@@ -16,6 +16,8 @@ def dislikeRoomee(userId, roomee):
 
 
 def clearDislikesTable(userId):
+    executeQuery('ALTER SEQUENCE dislikeids RESTART WITH 1',
+                 [], commit=True)
     return executeQuery(sql.SQL('DELETE FROM {} WHERE userId=%s')
                         .format(sql.Identifier(getTables()['dislikesTable'])),
                         [userId], commit=True)

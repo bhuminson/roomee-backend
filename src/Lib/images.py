@@ -11,17 +11,17 @@ def getTables():
 
 def uploadImage(img):
     return executeQuery(sql.SQL("INSERT INTO {} (img) VALUES (%s)")
-                        .format(sql.Identifier(getTables()["test_profilepics"])),
+                        .format(sql.Identifier(getTables()["pfpTable"])),
                         [Binary(img)], commit=True)
 
 
 def getUserImage(id):
     return executeQuery(sql.SQL("SELECT ENCODE(img,'base64') FROM {} WHERE id=%s")
-                        .format(sql.Identifier(getTables()["test_profilepics"])), [id])
+                        .format(sql.Identifier(getTables()["pfpTable"])), [id])
 
 
 def deleteAllImages():
     executeQuery('ALTER SEQUENCE pfpids RESTART WITH 1',
                  [], commit=True)
     return executeQuery(sql.SQL('DELETE FROM {}')
-                        .format(sql.Identifier(getTables()["test_profilepics"])), [], commit=True)
+                        .format(sql.Identifier(getTables()["pfpTable"])), [], commit=True)

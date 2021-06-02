@@ -6,7 +6,9 @@ from psycopg2 import sql
 def getTables():
     return {
         'usersTable': "test_users" if src.constants.testing else "users",
-        'filtersTable': "test_filters" if src.constants.testing else "filters"
+        'filtersTable': "test_filters" if src.constants.testing else "filters",
+        'likesTable': "test_likes" if src.constants.testing else "likes",
+        'dislikesTable': "test_dislikes" if src.constants.testing else "dislikes"
     }
 
 
@@ -37,15 +39,20 @@ def getNextMatchingRoomee(userId, filters):
                             (f.noise BETWEEN %s AND %s)' + categoricalFilters
                                 + ' AND u.id NOT IN ( \
                                 SELECT likeId \
-                                FROM likes \
+                                FROM {} \
                                 WHERE userId = %s \
                             ) \
                             AND u.id NOT IN ( \
                                 SELECT dislikeId \
-                                FROM dislikes\
+                                FROM {}\
                                 WHERE userId = %s \
                             ) \
-                            AND u.id <> %s').format(sql.Identifier(getTables()['usersTable']), sql.Identifier(getTables()['filtersTable'])),
+                            AND u.id <> %s').format(sql.Identifier(getTables()['usersTable']),
+                                                    sql.Identifier(
+                                                        getTables()['filtersTable']),
+                                                    sql.Identifier(
+                                                        getTables()['likesTable']),
+                                                    sql.Identifier(getTables()['dislikesTable'])),
                         [filters['min_age'], filters['max_age'],
                          filters['min_graduation_year'], filters['max_graduation_year'],
                          filters['min_clean'], filters['max_clean'],

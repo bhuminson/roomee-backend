@@ -138,3 +138,11 @@ filter3 = {
 }
 
 filters = [filter1, filter2, filter3]
+
+# LOGINS
+
+login1 = 'password1'
+login2 = 'password2'
+login3 = 'password3'
+
+logins = [login1, login2, login3]

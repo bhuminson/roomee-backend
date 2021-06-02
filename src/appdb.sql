@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS filters;
 DROP TABLE IF EXISTS login_info;
+DROP TABLE IF EXISTS test_login_info;
 DROP TABLE IF EXISTS profilepics;
 DROP TABLE IF EXISTS likes;
 DROP TABLE IF EXISTS dislikes;
@@ -9,6 +10,7 @@ DROP TABLE IF EXISTS test_users;
 DROP SEQUENCE IF EXISTS userids;
 DROP SEQUENCE IF EXISTS filterids;
 DROP SEQUENCE IF EXISTS pfpids;
+DROP SEQUENCE IF EXISTS loginids;
 
 CREATE SEQUENCE userids
 start with 7
@@ -25,6 +27,13 @@ maxvalue 100
 cycle;
 
 CREATE SEQUENCE pfpids
+start with 1
+increment by 1
+minvalue 1
+maxvalue 100
+cycle;
+
+CREATE SEQUENCE loginids
 start with 1
 increment by 1
 minvalue 1
@@ -127,6 +136,12 @@ CREATE TABLE test_filters (
     visible_phone varchar(20), -- true means show phone, false means hide it
     visible_email varchar(20), -- true means show email, false means hide it
     FOREIGN KEY (userId) REFERENCES test_users(id)
+);
+
+CREATE TABLE test_login_info (
+    userId INT PRIMARY KEY NOT NULL DEFAULT NEXTVAL('loginids'),
+    password varchar(30) NOT NULL,
+    FOREIGN KEY (userId) REFERENCES users(id)
 );
 
 --------------------------------------------------------------------------------------------------------------------------

@@ -44,7 +44,8 @@ data1 = {
     "clean": "5",
     "noise": "1",
     "drink": "true",
-    "smoke": "false"
+    "smoke": "false",
+    "drugs": "true"
 }
 
 data2 = {
@@ -60,7 +61,8 @@ data2 = {
     "clean": "5",
     "noise": "1",
     "drink": "true",
-    "smoke": "false"
+    "smoke": "false",
+    "drugs": "true"
 }
 
 data3 = {
@@ -76,7 +78,8 @@ data3 = {
     "clean": "5",
     "noise": "1",
     "drink": "true",
-    "smoke": "false"
+    "smoke": "false",
+    "drugs": "true"
 }
 
 userData = [data1, data2, data3]
@@ -98,7 +101,8 @@ filter1 = {
     "pet": "",
     "car": "",
     "drink": "",
-    "smoke": ""
+    "smoke": "",
+    "drugs": ""
 }
 
 filter2 = {
@@ -116,7 +120,8 @@ filter2 = {
     "pet": "false",
     "car": "true",
     "drink": "true",
-    "smoke": "false"
+    "smoke": "false",
+    "drugs": "true"
 }
 
 filter3 = {
@@ -134,7 +139,8 @@ filter3 = {
     "pet": "false",
     "car": "true",
     "drink": "true",
-    "smoke": "false"
+    "smoke": "false",
+    "drugs": "true"
 }
 
 filters = [filter1, filter2, filter3]

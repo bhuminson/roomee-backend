@@ -1,5 +1,6 @@
 from src.Lib.users import *
 from src.Lib.filters import *
+from src.Lib.login import *
 from src.Tests.test_data import *
 from src.constants import testing
 from init import app
@@ -10,6 +11,8 @@ def insertTestData():
         createNewUser(user)
     for data in userData:
         createNewUserFilters(data)
+    for login in logins:
+        createNewLogin(login)
 
 
 def resetTestTables():
@@ -18,6 +21,7 @@ def resetTestTables():
         return
     deleteAllFilters()
     deleteAllUsers()
+    deleteAllLogins()
 
 
 def testSetup():

@@ -26,5 +26,4 @@ def executeQuery(query, args, fetchall=False, commit=False):
         if commit:
             res = jsonify(success=True)
             res.status_code = 201
-        print("DB Connection closed")
         return res if res is not None else {}

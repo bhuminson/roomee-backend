@@ -6,7 +6,8 @@ user1 = {
     "lastname": "Halpert",
     "nickname": "jimothy",
     "phone": "9494832394",
-    "email": "jim@dundermifflin.com"
+    "email": "jim@dundermifflin.com",
+    "bio": "paper salesman"
 }
 
 user2 = {
@@ -15,7 +16,8 @@ user2 = {
     "lastname": "Higgins",
     "nickname": "Juice Wrld",
     "phone": "5352344124",
-    "email": "juice@wrld.net"
+    "email": "juice@wrld.net",
+    "bio": "rapper"
 }
 
 user3 = {
@@ -24,7 +26,8 @@ user3 = {
     "lastname": "Schrute",
     "nickname": "beetfarmer",
     "phone": "3513943324",
-    "email": "dwight@dundermifflin.com"
+    "email": "dwight@dundermifflin.com",
+    "bio": "paper salesman"
 }
 
 users = [user1, user2, user3]

@@ -23,13 +23,14 @@ def createNewUserFilters(data):
     noise = data['noise']
     drink = data['drink']
     smoke = data['smoke']
+    drugs = data['drugs']
     visible_phone = ''
     visible_email = ''
     return executeQuery(sql.SQL('INSERT INTO {} (age, gender, school, major, school_year, graduation_year, \
-                        leasing_q, car, pet, clean, noise, drink, smoke, visible_phone, visible_email) \
-                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)').format(sql.Identifier(getTables()['filtersTable'])),
+                        leasing_q, car, pet, clean, noise, drink, smoke, drugs, visible_phone, visible_email) \
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)').format(sql.Identifier(getTables()['filtersTable'])),
                         [age, gender, school, major, school_year, graduation_year, leasing_q,
-                         car, pet, clean, noise, drink, smoke, visible_phone, visible_email], commit=True)
+                         car, pet, clean, noise, drink, smoke, drugs, visible_phone, visible_email], commit=True)
 
 
 def deleteAllFilters():

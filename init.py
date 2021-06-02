@@ -23,15 +23,15 @@ login_manager.init_app(app)
 login_manager.session_protection = "strong"
 login_manager.login_message = "Welcome to Roomee!"
 
-# Unused at the moment
-# @login_manager.user_loader
-# def load_user(id: int):
-#     user_data = user.getUserProfile(id)
-#     if user_data:
-#         user_model = User()
-#         user_model.id = user_data["id"]
-#         return user_model
-#     return None
+
+@login_manager.user_loader
+def load_user(id: int):
+    user_data = user.getUserProfile(id)
+    if user_data:
+        user_model = User()
+        user_model.id = user_data["id"]
+        return user_model
+    return None
 
 
 app.register_blueprint(user.bp)

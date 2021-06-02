@@ -98,7 +98,7 @@ CREATE TABLE dislikes (
 );
 
 CREATE TABLE login_info (
-    userId SERIAL PRIMARY KEY,
+    userId INT PRIMARY KEY NOT NULL DEFAULT NEXTVAL('loginids'),
     password varchar(30) NOT NULL,
     FOREIGN KEY (userId) REFERENCES users(id)
 );
@@ -141,7 +141,7 @@ CREATE TABLE test_filters (
 CREATE TABLE test_login_info (
     userId INT PRIMARY KEY NOT NULL DEFAULT NEXTVAL('loginids'),
     password varchar(30) NOT NULL,
-    FOREIGN KEY (userId) REFERENCES users(id)
+    FOREIGN KEY (userId) REFERENCES test_users(id)
 );
 
 --------------------------------------------------------------------------------------------------------------------------

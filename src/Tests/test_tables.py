@@ -2,8 +2,8 @@ from src.Lib.users import *
 from src.Lib.filters import *
 from src.Lib.login import *
 from src.Tests.test_data import *
-from src.constants import testing
 from init import app
+import src.constants
 
 
 def insertTestData():
@@ -16,12 +16,12 @@ def insertTestData():
 
 
 def resetTestTables():
-    if not testing:
+    if not src.constants.testing:
         print("You are not in testing mode.")
         return
     deleteAllFilters()
-    deleteAllUsers()
     deleteAllLogins()
+    deleteAllUsers()
 
 
 def testSetup():

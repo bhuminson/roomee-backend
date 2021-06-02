@@ -6,8 +6,8 @@ from flask_login import (
     login_user,
     logout_user,
 )
-from src.db import executeQuery
 import bcrypt
+from src.Lib.login import *
 
 from . import user
 
@@ -29,13 +29,9 @@ def login():
     pword = data["pword"].encode("utf-8")
 
     hashed = bcrypt.hashpw(pword, bcrypt.gensalt())
-    pw = executeQuery('SELECT password \
-                                    FROM users \
-                                    JOIN login_info on id=login_info.userId \
-                                    WHERE username=%s', [username]).get('password')
-    id = executeQuery('SELECT id \
-                            FROM users \
-                            WHERE username=%s', [username]).get('id')
+
+    pw = getPassword(username)
+    id = getId(username)
     if pw is not None:
         if bcrypt.checkpw(pw.encode("utf-8"), hashed):
             user_model = User()

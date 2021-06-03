@@ -24,6 +24,6 @@ def removeLike(userId, roomee):
 def clearLikesTable(userId):
     executeQuery('ALTER SEQUENCE likeids RESTART WITH 1',
                  [], commit=True)
-    executeQuery(sql.SQL('DELETE FROM {} WHERE userId=%s')
-                 .format(sql.Identifier(getTables()['likesTable'])),
-                 [userId], commit=True)
+    return executeQuery(sql.SQL('DELETE FROM {} WHERE userId=%s')
+                        .format(sql.Identifier(getTables()['likesTable'])),
+                        [userId], commit=True)

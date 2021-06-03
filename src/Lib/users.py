@@ -64,18 +64,20 @@ def getNextMatchingRoomee(userId, filters):
 def getUserLikes(userId):
     likes = executeQuery(sql.SQL("SELECT {table}.id, firstname, lastname, bio \
                                 FROM {table} \
-                                JOIN likes ON {table}.id=likeId \
-                                WHERE userId=%s").format(table=sql.Identifier(getTables()['usersTable'])), [userId], fetchall=True)
+                                JOIN {likes} ON {table}.id=likeId \
+                                WHERE userId=%s").format(table=sql.Identifier(getTables()['usersTable']),
+                                                         likes=sql.Identifier(getTables()['likesTable'])), [userId], fetchall=True)
     likes = [] if likes is None else likes
     return {"data": likes}
 
 
 def getProfile(userId):
     return executeQuery(sql.SQL('SELECT * \
-                        FROM {} \
-                        JOIN filters on id=filters.userId \
+                        FROM {users} \
+                        JOIN {filters} on id=filters.userId \
                         JOIN login_info on id=login_info.userId \
-                        WHERE id=%s').format(sql.Identifier(getTables()['usersTable'])), [userId])
+                        WHERE id=%s').format(users=sql.Identifier(getTables()['usersTable']),
+                                             filters=sql.Identifier(getTables()['filtersTable'])), [userId])
 
 
 def deleteAllUsers():

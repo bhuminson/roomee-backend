@@ -8,7 +8,8 @@ def getTables():
         'usersTable': "test_users" if src.constants.testing else "users",
         'filtersTable': "test_filters" if src.constants.testing else "filters",
         'likesTable': "test_likes" if src.constants.testing else "likes",
-        'dislikesTable': "test_dislikes" if src.constants.testing else "dislikes"
+        'dislikesTable': "test_dislikes" if src.constants.testing else "dislikes",
+        'loginTable': "test_login_info" if src.constants.testing else "login_info"
     }
 
 
@@ -23,6 +24,26 @@ def createNewUser(data):
     return executeQuery(sql.SQL('INSERT INTO {} (username, firstname, lastname, nickname, phone, email, bio) VALUES (%s, %s, %s, %s, %s, %s, %s)')
                         .format(sql.Identifier(getTables()['usersTable'])),
                         [username, firstname, lastname, nickname, phone, email, bio], commit=True)
+
+
+def createNewCredentials(data):
+    password = data['password']
+    return executeQuery(sql.SQL('INSERT INTO {} (password) VALUES (%s)')
+                        .format(sql.Identifier(getTables()['loginTable'])),
+                        [password], commit=True)
+
+
+def updateUser(data):
+    username = data['username']
+    firstname = data['firstname']
+    lastname = data['lastname']
+    nickname = data['nickname']
+    phone = data['phone']
+    email = data['email']
+    bio = data['bio']
+    return executeQuery(sql.SQL('UPDATE {} SET firstname=%s, lastname=%s, nickname=%s, phone=%s, email=%s, bio=%s WHERE username=%s')
+                        .format(sql.Identifier(getTables()['usersTable'])),
+                        [firstname, lastname, nickname, phone, email, bio, username], commit=True)
 
 
 def getNextMatchingRoomee(userId, filters):

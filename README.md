@@ -65,3 +65,7 @@ Frontend:
 
 Backend:
 `pytest test.py`
+
+Pytest coverage report:
+
+![image](https://user-images.githubusercontent.com/24502905/120859685-6c8e3980-c539-11eb-8b64-c49bf7e8cf26.png)

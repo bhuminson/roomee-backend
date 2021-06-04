@@ -1,6 +1,7 @@
 from src.Lib.images import *
 from src.Lib.filters import *
 from src.Lib.users import *
+from src.Lib.login import *
 from flask import (Blueprint, request, jsonify)
 
 bp = Blueprint('register', __name__)
@@ -12,7 +13,7 @@ def register():
         data = request.json
         createNewUser(data)
         createNewUserFilters(data)
-        createNewCredentials(data)
+        createNewLogin(data['password'])
         resp = jsonify(success=True)
         resp.status_code = 201
         return resp

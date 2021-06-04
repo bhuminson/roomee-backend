@@ -3,6 +3,8 @@ DROP TABLE IF EXISTS login_info;
 DROP TABLE IF EXISTS test_login_info;
 DROP TABLE IF EXISTS profilepics;
 DROP TABLE IF EXISTS likes;
+DROP TABLE IF EXISTS test_likes;
+DROP TABLE IF EXISTS test_dislikes;
 DROP TABLE IF EXISTS dislikes;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS test_filters;

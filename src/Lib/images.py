@@ -9,14 +9,20 @@ def getTables():
     }
 
 
-def uploadImage(img):
-    return executeQuery(sql.SQL("INSERT INTO {} (img) VALUES (%s)")
+def uploadImage(img, id):
+    return executeQuery(sql.SQL("INSERT INTO {} (userId, img) VALUES (%s, %s)")
                         .format(sql.Identifier(getTables()["pfpTable"])),
-                        [Binary(img)], commit=True)
+                        [id, Binary(img)], commit=True)
+
+
+def updateImage(img, id):
+    return executeQuery(sql.SQL("UPDATE {} SET img=%s WHERE userId=%s")
+                        .format(sql.Identifier(getTables()["pfpTable"])),
+                        [Binary(img), id], commit=True)
 
 
 def getUserImage(id):
-    return executeQuery(sql.SQL("SELECT ENCODE(img,'base64') FROM {} WHERE id=%s")
+    return executeQuery(sql.SQL("SELECT ENCODE(img,'base64') FROM {} WHERE userId=%s")
                         .format(sql.Identifier(getTables()["pfpTable"])), [id])
 
 

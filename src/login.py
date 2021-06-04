@@ -25,8 +25,8 @@ def get_user(user_id: int):
 @bp.route("/login", methods=["GET", "POST"])
 def login():
     data = request.json['data']
-    username = data["uname"]
-    pword = data["pword"].encode("utf-8")
+    username = data["username"]
+    pword = data["password"].encode("utf-8")
 
     hashed = bcrypt.hashpw(pword, bcrypt.gensalt())
 
@@ -37,7 +37,7 @@ def login():
             user_model = User()
             user_model.id = id
             login_user(user_model)
-            return jsonify({"login": True})
+            return ({"id": id})
     return jsonify({"login": False})
 
 

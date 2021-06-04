@@ -26,13 +26,6 @@ def createNewUser(data):
                         [username, firstname, lastname, nickname, phone, email, bio], commit=True)
 
 
-def createNewCredentials(data):
-    password = data['password']
-    return executeQuery(sql.SQL('INSERT INTO {} (password) VALUES (%s)')
-                        .format(sql.Identifier(getTables()['loginTable'])),
-                        [password], commit=True)
-
-
 def updateUser(data):
     username = data['username']
     firstname = data['firstname']
@@ -96,9 +89,11 @@ def getProfile(userId):
     return executeQuery(sql.SQL('SELECT * \
                         FROM {users} \
                         JOIN {filters} on id=filters.userId \
-                        JOIN login_info on id=login_info.userId \
+                        JOIN {login} on id=login_info.userId \
                         WHERE id=%s').format(users=sql.Identifier(getTables()['usersTable']),
-                                             filters=sql.Identifier(getTables()['filtersTable'])), [userId])
+                                             filters=sql.Identifier(
+                                                 getTables()['filtersTable']),
+                                             login=sql.Identifier(getTables()['loginTable'])), [userId])
 
 
 def deleteAllUsers():

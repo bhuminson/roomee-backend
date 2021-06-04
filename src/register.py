@@ -30,14 +30,12 @@ def register():
 def image(userId):
     if request.method == "GET":
         return getUserImage(userId)
-    elif request.method == "POST":
+    elif request.method in ("POST", "PUT"):
         image = request.files.get('img')
         img = image.read()
+        if(getUserImage(userId)):
+            return updateImage(img, userId)
         return uploadImage(img, userId)
-    elif request.method == "PUT":
-        image = request.files.get('img')
-        img = image.read()
-        return updateImage(img, userId)
 
 
 @bp.route('/resetImages', methods=['DELETE'])

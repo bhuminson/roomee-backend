@@ -47,6 +47,10 @@ set FLASK_ENV=development
 flask run
 ```
 
+## CI
+Frontend: https://travis-ci.com/github/bhuminson/roommate-finder
+
+Backend: https://travis-ci.com/github/bhuminson/roomee-backend
 
 ## Code Style and Linters
 Style-Checking:
@@ -60,6 +64,9 @@ In settings, check "Format on Save" to style check on every save.
 Use the default settings for both linters.
 
 ## Testing
+
+Acceptance tests can be found in `roommate-finder/cypress/integration/`
+
 Frontend:
 `npx cypress run`
 
@@ -69,3 +76,4 @@ Backend:
 Pytest coverage report:
 
 ![image](https://user-images.githubusercontent.com/24502905/120859685-6c8e3980-c539-11eb-8b64-c49bf7e8cf26.png)
+

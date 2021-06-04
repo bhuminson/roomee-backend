@@ -6,6 +6,8 @@ DROP TABLE IF EXISTS likes;
 DROP TABLE IF EXISTS dislikes;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS test_filters;
+DROP TABLE IF EXISTS test_likes;
+DROP TABLE IF EXISTS test_dislikes;
 DROP TABLE IF EXISTS test_users;
 DROP SEQUENCE IF EXISTS userids;
 DROP SEQUENCE IF EXISTS filterids;
@@ -18,45 +20,45 @@ CREATE SEQUENCE userids
 start with 7
 increment by 1
 minvalue 1
-maxvalue 100
-cycle;
+no maxvalue
+no cycle;
 
 CREATE SEQUENCE filterids
 start with 7
 increment by 1
 minvalue 1
-maxvalue 100
-cycle;
+no maxvalue
+no cycle;
 
 CREATE SEQUENCE pfpids
 start with 1
 increment by 1
 minvalue 1
-maxvalue 100
-cycle;
+no maxvalue
+no cycle;
 
 CREATE SEQUENCE loginids
-start with 1
+start with 7
 increment by 1
 minvalue 1
-maxvalue 100
-cycle;
+no maxvalue
+no cycle;
 
 
 CREATE SEQUENCE likeids
 start with 1
 increment by 1
 minvalue 1
-maxvalue 100
-cycle;
+no maxvalue
+no cycle;
 
 
 CREATE SEQUENCE dislikeids
 start with 1
 increment by 1
 minvalue 1
-maxvalue 100
-cycle;
+no maxvalue
+no cycle;
 
 CREATE TABLE users (
     id INT PRIMARY KEY NOT NULL DEFAULT NEXTVAL('userids'), 
@@ -74,7 +76,9 @@ CREATE TABLE users (
 
 CREATE TABLE profilepics (
     id INT PRIMARY KEY NOT NULL DEFAULT NEXTVAL('pfpids'),
-    img bytea
+    userId INT NOT NULL,
+    img bytea,
+    FOREIGN KEY (userId) REFERENCES users(id)
 );
 
 CREATE TABLE filters (
@@ -195,3 +199,8 @@ INSERT INTO "filters" VALUES(5,26,'Male', 'Cal Poly', 'Business', 'Freshman', 20
 INSERT INTO "filters" VALUES(6,26,'Female', 'Cal Poly', 'Business', 'Freshman', 2022,'Leasing', 4, 2, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE);
 
 INSERT INTO "login_info" VALUES(1,'dayday23');
+INSERT INTO "login_info" VALUES(2,'asdf');
+INSERT INTO "login_info" VALUES(3,'asdf');
+INSERT INTO "login_info" VALUES(4,'asdf');
+INSERT INTO "login_info" VALUES(5,'asdf');
+INSERT INTO "login_info" VALUES(6,'asdf');
